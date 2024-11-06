@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797761358033097986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: -1.5799999}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 3.4074, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -111,8 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b770e4865ec884e94e519d5899d8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  projectile: {fileID: 2069162645466651245, guid: 5fb6508daf440394b9ee2843d203b5b0, type: 3}
+  towerDetail: {fileID: 11400000, guid: 42577e7f7745147429820f562ccf0e23, type: 2}
   projectileOutput: {fileID: 1797761359186484812}
 --- !u!1 &1797761359186484803
 GameObject:
@@ -138,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797761359186484803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.106, z: 1.1}
+  m_LocalPosition: {x: 0, y: -0.106, z: -0.057}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
         body = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         body.velocity = Vector3.forward * speed * Time.deltaTime;
         //transform.Translate(Vector3.forward * speed * Time.deltaTime);
@@ -18,7 +18,10 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
+        {
             other.GetComponent<IEnemy>().Hit();
+            gameObject.SetActive(false);
+        }
     }
 }
