@@ -8,6 +8,7 @@ public class TowerDetail : ScriptableObject
     public string towerName;
     public float maxHealth;
     public float costToUse;
+    public float intervalShoot;
     public GameObject towerPrefab;
     public GameObject projectilePrefab;
     public Sprite towerImage;

@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
     float currentHealth;
     float timeTracker = 0f;
-    bool isMove = false;
+    public bool isMove = false;
 
     public UnityAction onDied;
 
@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour, IEnemy
     private void FixedUpdate()
     {
         if (isMove)
-            body.velocity = Vector3.forward * -1 * enemyDetail.speed * Time.deltaTime;
+            body.velocity = -1 * enemyDetail.speed * Time.deltaTime * Vector3.forward;
         else
             body.velocity = Vector3.zero;
     }
@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour, IEnemy
         if (currentHealth <= 0)
         {   
             onDied?.Invoke();
+            GameplayManager.instance.Resources += 10;
             gameObject.SetActive(false);
         }
     }
@@ -61,7 +62,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
         if (other.CompareTag("End"))
         {
-            GameplayManager.instance.ChangeToDay();
+            GameplayManager.instance.Lost();
             gameObject.SetActive(false);
         }
     }
@@ -78,5 +79,11 @@ public class Enemy : MonoBehaviour, IEnemy
                 timeTracker = 0f;
             }
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        
+        isMove = true;
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 716935768472503990}
   - component: {fileID: 716935768472503989}
   - component: {fileID: 716935768472504010}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy Normal
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -112,8 +112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDetail: {fileID: 11400000, guid: bb7cc28468c0a1548885cb6e3bc8a06d, type: 2}
-  timeTracker: 0
-  isMove: 0
 --- !u!54 &716935768472504010
 Rigidbody:
   m_ObjectHideFlags: 0

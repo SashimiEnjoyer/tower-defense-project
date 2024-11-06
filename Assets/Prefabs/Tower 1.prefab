@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1797761358033097999}
   m_Layer: 0
   m_Name: Tower 1
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797761358033097986}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -113,6 +113,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerDetail: {fileID: 11400000, guid: 42577e7f7745147429820f562ccf0e23, type: 2}
   projectileOutput: {fileID: 1797761359186484812}
+  enemyDetection: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1797761359186484803
 GameObject:
   m_ObjectHideFlags: 0

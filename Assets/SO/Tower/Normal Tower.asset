@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Normal Tower
   m_EditorClassIdentifier: 
   towerName: Normal Tower
-  maxHealth: 5
+  maxHealth: 1
   costToUse: 10
+  intervalShoot: 2
   towerPrefab: {fileID: 1797761358033097986, guid: 3cdd32cb780c6c641a4d97901eb74f91, type: 3}
   projectilePrefab: {fileID: 2069162645466651245, guid: 5fb6508daf440394b9ee2843d203b5b0, type: 3}
   towerImage: {fileID: 0}

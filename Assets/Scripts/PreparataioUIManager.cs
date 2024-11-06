@@ -7,20 +7,26 @@ using UnityEngine.UI;
 public class PreparataioUIManager : MonoBehaviour
 {
     [SerializeField] TMP_Text stateText;
+    [SerializeField] TMP_Text resText;
+    [SerializeField] TMP_Text coolDownText;
     [SerializeField] Transform towerSelectParent;
     [SerializeField] GameObject TowerSelectBtn;
     [SerializeField] Button stopSelectTowerBtn;
     List<GameObject> towerSelectList = new();
 
+    int min;
+    float sec;
 
     private void OnEnable()
     {
+        GameplayManager.instance.onResourcesChange += CheckResourceUpdate;
         PreparationStage.onPreparationStateChange += CheckPreparationState;
         PreparationStage.onTowerPlaced += UnSetAllSelectionButton;
     }
 
     private void OnDisable()
     {
+        GameplayManager.instance.onResourcesChange -= CheckResourceUpdate;
         PreparationStage.onPreparationStateChange -= CheckPreparationState;
         PreparationStage.onTowerPlaced -= UnSetAllSelectionButton;
 
@@ -46,6 +52,16 @@ public class PreparataioUIManager : MonoBehaviour
         }
     }
 
+    public void SetCoolDownText(float timer)
+    {
+        float result = 300 - timer;
+
+        sec = result % 60;
+        min = (int)result / 60;
+
+        coolDownText.SetText($"Remaining: {min:F0}:{sec:F0}");
+    }
+
     public void UnSetAllSelectionButton()
     {
         foreach (var item in towerSelectList)
@@ -66,5 +82,8 @@ public class PreparataioUIManager : MonoBehaviour
                 break;
         }
     }
-
+    void CheckResourceUpdate(float value)
+    {
+        resText.SetText($"Resource: {value}");
+    }
 }

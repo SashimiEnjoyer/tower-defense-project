@@ -65,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
 
             if (spawnTracker == (wave[currentWave].list.Count)) 
             { 
-                GameplayManager.instance.ChangeState(GameplayState.Day);
+                GameplayManager.instance.ChangeToDay();
                 break;
             }
 

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Enemy Normal
   m_EditorClassIdentifier: 
   maxHealth: 5
-  speed: 10
+  speed: 200
   intervalAttack: 1

@@ -39,6 +39,7 @@ public class PreparationStage : MonoBehaviour
 
     bool canPlace = false;
     int towerIdx = 0;
+    float nextStageCooldownCounter;
 
     private void Awake()
     {
@@ -48,6 +49,22 @@ public class PreparationStage : MonoBehaviour
     private void OnDestroy()
     {
         GameplayManager.instance.onStateChange -= CheckState;
+    }
+
+    private void Update()
+    {
+        if (GameplayManager.instance.State == GameplayState.Night)
+            return;
+
+        nextStageCooldownCounter += Time.deltaTime;
+
+        if(nextStageCooldownCounter > 300)
+        {
+            nextStageCooldownCounter = 0;
+            GameplayManager.instance.ChangeToNight();
+        }
+
+        uiManager.SetCoolDownText(nextStageCooldownCounter);
     }
 
     bool CheckTowerPlacementPermit()

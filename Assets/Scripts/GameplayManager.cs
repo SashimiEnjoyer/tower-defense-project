@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public enum GameplayState
 {
@@ -24,11 +25,22 @@ public class GameplayManager : MonoBehaviour
             onStateChange?.Invoke(_state);
         }
     }
-
-    public float Resources;
+    private float _resources;
+    public float Resources
+    {
+        get { return _resources; }
+        set 
+        { 
+            _resources = value;
+            onResourcesChange?.Invoke(_resources);
+        }
+    }
     public GameObject PreparationUI;
+    public GameObject BattleUI;
+    public Camera Camera;
 
     public UnityAction<GameplayState> onStateChange;
+    public UnityAction<float> onResourcesChange;
 
     private void Awake()
     {
@@ -36,12 +48,13 @@ public class GameplayManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+        
     }
 
     private void Start()
     {
         ChangeState(GameplayState.Day);
-        Resources = 10;
+        Resources = 50;
     }
 
     public void ChangeState(GameplayState state) => State = state;
@@ -50,13 +63,22 @@ public class GameplayManager : MonoBehaviour
     public void ChangeToNight()
     {
         State = GameplayState.Night;
+        Camera.backgroundColor = Color.black;
         PreparationUI.SetActive(false);
+        BattleUI.SetActive(true);
     }
 
     [ContextMenu("Change To Day")]
     public void ChangeToDay()
     {
         State = GameplayState.Day;
+        Camera.backgroundColor = Color.white;
         PreparationUI.SetActive(true);
+        BattleUI.SetActive(false);
+    }
+
+    public void Lost()
+    {
+        SceneManager.LoadSceneAsync("Lose Scene");
     }
 }
