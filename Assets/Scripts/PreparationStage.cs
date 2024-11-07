@@ -60,8 +60,8 @@ public class PreparationStage : MonoBehaviour
 
         if(nextStageCooldownCounter > 300)
         {
-            nextStageCooldownCounter = 0;
             GameplayManager.instance.ChangeToNight();
+            nextStageCooldownCounter = 0;
         }
 
         uiManager.SetCoolDownText(nextStageCooldownCounter);
@@ -125,8 +125,12 @@ public class PreparationStage : MonoBehaviour
         {
             case GameplayState.Day:
                 preparationVcam.Priority = 100;
-                uiManager.InitiateTowerButtons(towers.Length, towers,SelectCurrentTower);
+                if (GameplayManager.instance.waveIndex < towers.Length)
+                {
+                    uiManager.InitiateTowerButtons(GameplayManager.instance.waveIndex, towers[GameplayManager.instance.waveIndex], SelectCurrentTower);
+                } 
                 break;
+
             case GameplayState.Night:
                 preparationVcam.Priority = 0;
                 break;

@@ -15,7 +15,7 @@ MonoBehaviour:
   towerName: Normal Tower
   maxHealth: 5
   projectileSpeed: 500
-  damage: 1
+  damage: 2
   costToUse: 10
   intervalShoot: 2
   description: Shoot 1 projectile in interval time

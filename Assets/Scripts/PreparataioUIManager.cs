@@ -31,22 +31,16 @@ public class PreparataioUIManager : MonoBehaviour
         GameplayManager.instance.onResourcesChange -= CheckResourceUpdate;
         PreparationStage.onPreparationStateChange -= CheckPreparationState;
         PreparationStage.onTowerPlaced -= UnSetAllSelectionButton;
-
-        foreach (var item in towerSelectList)
-        {
-            item.GetComponent<TowerSelectButton>().ClearOnClick();
-        }
-        towerSelectList.Clear();
     }
 
-    public void InitiateTowerButtons(TowerDetail[] detail, UnityAction<int> onClick)
+    public void InitiateTowerButtons(int towerIdx, TowerDetail detail, UnityAction<int> onClick)
     {
         GameObject go = Instantiate(TowerSelectBtn, towerSelectParent);
         TowerSelectButton button = go.GetComponent<TowerSelectButton>();
-        button.SetOnClick(()=> onClick(waveCounter));
+        button.SetOnClick(()=> onClick(towerIdx));
         button.SetOnClick(UnSetAllSelectionButton);
         button.SetOnClick(button.SetSelected);
-        button.SetCardTexts(detail[waveCounter]);
+        button.SetCardTexts(detail);
         towerSelectList.Add(go);
     }
 

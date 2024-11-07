@@ -35,12 +35,15 @@ public class GameplayManager : MonoBehaviour
             onResourcesChange?.Invoke(_resources);
         }
     }
+
+    public int waveIndex = -1;
     public GameObject PreparationUI;
     public GameObject BattleUI;
     public Camera Camera;
 
     public UnityAction<GameplayState> onStateChange;
     public UnityAction<float> onResourcesChange;
+    public UnityAction<int> onWaveChange;
 
     private void Awake()
     {
@@ -65,20 +68,28 @@ public class GameplayManager : MonoBehaviour
         PreparationUI.SetActive(false);
         BattleUI.SetActive(true);
         onResourcesChange(Resources);
+        onWaveChange?.Invoke(waveIndex);
     }
 
     [ContextMenu("Change To Day")]
     public void ChangeToDay()
     {
+        waveIndex++;
         State = GameplayState.Day;
         Camera.backgroundColor = Color.white;
         PreparationUI.SetActive(true);
         BattleUI.SetActive(false);
         onResourcesChange(Resources);
+        onWaveChange?.Invoke(waveIndex);
     }
 
     public void Lost()
     {
         SceneManager.LoadSceneAsync("Lose Scene");
+    }
+
+    public void Win()
+    {
+       SceneManager.LoadSceneAsync("Win Scene");
     }
 }

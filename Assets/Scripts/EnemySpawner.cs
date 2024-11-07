@@ -14,7 +14,6 @@ public class EnemySpawner : MonoBehaviour
     public Wave[] wave;
     [SerializeField] Transform[] spawnPoints;
 
-    int currentWave = 0;
     int spawnTracker = 0;
     private List<GameObject> currentEnemyWave = new ();
 
@@ -36,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
 
                 foreach (var item in currentEnemyWave)
                 {
-                    item.GetComponent<Enemy>().onDied -= () => SpawnEnemy(1);
+                    item.GetComponent<Enemy>().onDied -= SpawnEnemyWhenDied;
                 }
 
                 currentEnemyWave.Clear();
@@ -44,35 +43,49 @@ public class EnemySpawner : MonoBehaviour
 
             case GameplayState.Night:
 
-                foreach (var item in wave[currentWave].list)
+                foreach (var item in wave[GameplayManager.instance.waveIndex].list)
                 {
                     GameObject go = Instantiate(item, transform.position, Quaternion.identity, transform);
                     currentEnemyWave.Add(go);
-                    go.GetComponent<Enemy>().onDied += () => SpawnEnemy(1);
+                    go.GetComponent<Enemy>().onDied += SpawnEnemyWhenDied;
                     go.SetActive(false);
                 }
 
-                SpawnEnemy(wave[currentWave].amountFirstSpawn);
+                InitSpawnEnemy(wave[GameplayManager.instance.waveIndex].amountFirstSpawn);
                 break;
 
         }
     }
 
-    public void SpawnEnemy(int numberOfSpawn)
+    public void InitSpawnEnemy(int numberOfSpawn)
     {
+        int rand = UnityEngine.Random.Range(0, spawnPoints.Length);
+
         for (int i = 0; i < numberOfSpawn; i++)
         {
-
-            if (spawnTracker == (wave[currentWave].list.Count)) 
-            { 
-                GameplayManager.instance.ChangeToDay();
-                break;
-            }
-
-            currentEnemyWave[spawnTracker].transform.position = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].position;
-            currentEnemyWave[spawnTracker].SetActive(true);
-            spawnTracker++;
+            currentEnemyWave[i].transform.position = spawnPoints[(rand + i) % spawnPoints.Length].position;
+            currentEnemyWave[i].SetActive(true);
+            //spawnTracker++;
         }
     }
 
+    public void SpawnEnemyWhenDied()
+    {
+        spawnTracker++;
+        
+        if (spawnTracker == wave[GameplayManager.instance.waveIndex].list.Count)
+        {
+            if (GameplayManager.instance.waveIndex == wave.Length - 1)
+                GameplayManager.instance.Win();
+            else
+                GameplayManager.instance.ChangeToDay();
+
+            spawnTracker = 0;
+            return;
+        }
+
+        currentEnemyWave[spawnTracker].transform.position = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].position;
+        currentEnemyWave[spawnTracker].SetActive(true);
+        
+    }
 }

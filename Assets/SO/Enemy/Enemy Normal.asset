@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Enemy Normal
   m_EditorClassIdentifier: 
   maxHealth: 5
-  speed: 200
+  speed: 100
   damage: 1
   intervalAttack: 1
