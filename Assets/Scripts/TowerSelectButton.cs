@@ -6,8 +6,13 @@ using UnityEngine.UI;
 public class TowerSelectButton : MonoBehaviour
 {
     [SerializeField] Button button;
-    [SerializeField] Image image;
-    [SerializeField] TMP_Text text;
+    [SerializeField] GameObject selectIndicator;
+    [SerializeField] TMP_Text text;    
+    [SerializeField] TMP_Text hpText;
+    [SerializeField] TMP_Text damageText;
+    [SerializeField] TMP_Text intervalAtkText;
+    [SerializeField] TMP_Text projectileSpeed;
+    [SerializeField] TMP_Text descriptionText;
     [SerializeField] TMP_Text resourcesText;
 
     public void SetOnClick(UnityAction onClick)
@@ -20,18 +25,24 @@ public class TowerSelectButton : MonoBehaviour
         button.onClick.RemoveAllListeners();
     }
 
-    public void SetResourcesText(float value)
+    public void SetCardTexts(TowerDetail detail)
     {
-        resourcesText.SetText($"{value}");
+        text.SetText($"HP: {detail.name}");
+        hpText.SetText($"HP: {detail.maxHealth}");
+        damageText.SetText($"Damage: {detail.damage}");
+        intervalAtkText.SetText($"Interval ATK: {detail.intervalShoot}");
+        projectileSpeed.SetText($"Projectile SPD: {detail.projectileSpeed}");
+        descriptionText.SetText($"{detail.description}");
+        resourcesText.SetText($"Cost: {detail.costToUse}");
     }
 
     public void SetSelected()
     {
-        text.SetText("SELECTED!");
+        selectIndicator.SetActive(true);
     }
 
     public void UnSetSelected()
     {
-        text.SetText("");
+        selectIndicator.SetActive(false);
     }
 }

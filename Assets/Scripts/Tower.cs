@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface ITower
 {
-    void Hit();
+    void Hit(float damage);
 }
 
 public class Tower : MonoBehaviour, ITower
@@ -12,15 +13,16 @@ public class Tower : MonoBehaviour, ITower
     [SerializeField] Transform enemyDetection;
     [SerializeField] LayerMask enemyLayer;
 
+    List<GameObject> projectilePool = new();
+    int projectileCount = 0;
     float currentHealth;
     float counter;
-    bool canShoot = false;
     bool isBattleState = false;
-    RaycastHit hit;
 
     private void Awake()
     {
         GameplayManager.instance.onStateChange += CheckState;
+        InitializeProjectile();
     }
 
     private void OnDestroy()
@@ -38,7 +40,7 @@ public class Tower : MonoBehaviour, ITower
         if(!isBattleState)
             return;
 
-        if (Physics.Raycast(enemyDetection.position, enemyDetection.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, enemyLayer))
+        if (Physics.Raycast(enemyDetection.position, enemyDetection.TransformDirection(Vector3.forward), out RaycastHit hit, Mathf.Infinity, enemyLayer))
         {
 
             counter += Time.deltaTime;
@@ -53,18 +55,33 @@ public class Tower : MonoBehaviour, ITower
             counter = 0; ;
     }
 
-    void ShootProjectile()
+    void InitializeProjectile()
     {
-        GameObject go = Instantiate(towerDetail.projectilePrefab, projectileOutput.position, Quaternion.identity, null);
-        Destroy(go, 20f);
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject go = Instantiate(towerDetail.projectilePrefab, projectileOutput.position, Quaternion.identity, transform);
+            go.SetActive(false);
+            projectilePool.Add(go);
+        }
     }
 
-    public void Hit()
+    void ShootProjectile()
     {
-        Debug.Log("Tower Hit");
-        currentHealth--;
-        if(currentHealth < 0)
-            gameObject.SetActive(false);
+        projectilePool[projectileCount].transform.position = projectileOutput.position;
+        projectilePool[projectileCount].GetComponent<Projectile>().SetProjectileStats(towerDetail);
+        projectilePool[projectileCount].SetActive(true);
+        projectileCount++;
+        projectileCount %= 10;
+    }
+
+    public void Hit(float damage)
+    {
+        currentHealth-= damage;
+        if (currentHealth < 0)
+        {
+            transform.Translate(new Vector3(transform.position.x, transform.position.y - 5, transform.position.z));
+            Destroy(gameObject, 2);
+        }
     }
 
     void CheckState(GameplayState state) 

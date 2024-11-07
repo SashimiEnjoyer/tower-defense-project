@@ -14,8 +14,10 @@ public class PreparataioUIManager : MonoBehaviour
     [SerializeField] Button stopSelectTowerBtn;
     List<GameObject> towerSelectList = new();
 
+    int waveCounter;
     int min;
     float sec;
+
 
     private void OnEnable()
     {
@@ -37,19 +39,15 @@ public class PreparataioUIManager : MonoBehaviour
         towerSelectList.Clear();
     }
 
-    public void InitiateTowerButtons(int amount, TowerDetail[] detail, UnityAction<int> onClick)
+    public void InitiateTowerButtons(TowerDetail[] detail, UnityAction<int> onClick)
     {
-        for (int i = 0; i < amount; i++)
-        {
-            int temp = i;
-            GameObject go = Instantiate(TowerSelectBtn, towerSelectParent);
-            TowerSelectButton button = go.GetComponent<TowerSelectButton>();
-            button.SetOnClick(()=> onClick(temp));
-            button.SetOnClick(UnSetAllSelectionButton);
-            button.SetOnClick(button.SetSelected);
-            button.SetResourcesText(detail[temp].costToUse);
-            towerSelectList.Add(go);
-        }
+        GameObject go = Instantiate(TowerSelectBtn, towerSelectParent);
+        TowerSelectButton button = go.GetComponent<TowerSelectButton>();
+        button.SetOnClick(()=> onClick(waveCounter));
+        button.SetOnClick(UnSetAllSelectionButton);
+        button.SetOnClick(button.SetSelected);
+        button.SetCardTexts(detail[waveCounter]);
+        towerSelectList.Add(go);
     }
 
     public void SetCoolDownText(float timer)

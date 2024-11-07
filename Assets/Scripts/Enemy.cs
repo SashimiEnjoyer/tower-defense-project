@@ -3,14 +3,11 @@ using UnityEngine.Events;
 
 public interface IEnemy
 {
-    void Hit();
+    void Hit(float damage);
 }
 
 public class Enemy : MonoBehaviour, IEnemy
 {
-    //[SerializeField] float speed = 15f;
-    //[SerializeField] float maxHealth = 5f;
-    //[SerializeField] float intervalAttack = 1f;
     [SerializeField] EnemyDetail enemyDetail;
     Rigidbody body;
 
@@ -43,9 +40,9 @@ public class Enemy : MonoBehaviour, IEnemy
             body.velocity = Vector3.zero;
     }
 
-    public void Hit()
+    public void Hit(float damage)
     {
-        currentHealth--;
+        currentHealth-= damage;
 
         if (currentHealth <= 0)
         {   
@@ -75,7 +72,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
             if (timeTracker >= enemyDetail.intervalAttack)
             {
-                other.GetComponent<ITower>().Hit();
+                other.GetComponent<ITower>().Hit(enemyDetail.damage);
                 timeTracker = 0f;
             }
         }

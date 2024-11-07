@@ -53,11 +53,9 @@ public class GameplayManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeState(GameplayState.Day);
-        Resources = 50;
+        ChangeToDay();
+        Resources = 150;
     }
-
-    public void ChangeState(GameplayState state) => State = state;
 
     [ContextMenu("Change To Night")]
     public void ChangeToNight()
@@ -66,6 +64,7 @@ public class GameplayManager : MonoBehaviour
         Camera.backgroundColor = Color.black;
         PreparationUI.SetActive(false);
         BattleUI.SetActive(true);
+        onResourcesChange(Resources);
     }
 
     [ContextMenu("Change To Day")]
@@ -75,6 +74,7 @@ public class GameplayManager : MonoBehaviour
         Camera.backgroundColor = Color.white;
         PreparationUI.SetActive(true);
         BattleUI.SetActive(false);
+        onResourcesChange(Resources);
     }
 
     public void Lost()

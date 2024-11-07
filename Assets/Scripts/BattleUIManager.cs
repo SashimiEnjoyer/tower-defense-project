@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,13 +10,13 @@ public class BattleUIManager : MonoBehaviour
         GameplayManager.instance.onResourcesChange += CheckResourceUpdate;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        GameplayManager.instance.onResourcesChange += CheckResourceUpdate;
+        GameplayManager.instance.onResourcesChange -= CheckResourceUpdate;
     }
 
     void CheckResourceUpdate(float value)
     {
-        resText.SetText($"Resource: {value}");
+        resText.SetText($"Resources: {value}");
     }
 }

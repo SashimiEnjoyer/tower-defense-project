@@ -9,5 +9,6 @@ public class EnemyDetail : ScriptableObject
 {
     public float maxHealth;
     public float speed;
+    public float damage;
     public float intervalAttack;
 }

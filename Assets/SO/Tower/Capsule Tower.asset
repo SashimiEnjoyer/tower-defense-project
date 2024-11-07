@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3925602ebfe13a4689cafcfa25fc9e0, type: 3}
-  m_Name: Normal Tower
+  m_Name: Capsule Tower
   m_EditorClassIdentifier: 
-  towerName: Normal Tower
+  towerName: Capsule Tower
   maxHealth: 5
-  projectileSpeed: 500
+  projectileSpeed: 300
   damage: 1
-  costToUse: 10
+  costToUse: 30
   intervalShoot: 2
-  description: Shoot 1 projectile in interval time
-  towerPrefab: {fileID: 1797761358033097986, guid: 3cdd32cb780c6c641a4d97901eb74f91, type: 3}
+  description: Shoot 3 projectiles at once
+  towerPrefab: {fileID: 1797761358033097986, guid: d80d0000353d2524ea4e74cab378635f, type: 3}
   projectilePrefab: {fileID: 2069162645466651245, guid: 5fb6508daf440394b9ee2843d203b5b0, type: 3}
   towerImage: {fileID: 0}
