@@ -9,17 +9,20 @@ public interface IEnemy
 public class Enemy : MonoBehaviour, IEnemy
 {
     [SerializeField] EnemyDetail enemyDetail;
-    Rigidbody body;
+    ParticleSystem hitEffect;
 
+    private Rigidbody body;
     protected float currentHealth;
-    float timeTracker = 0f;
-    public bool isMove = false;
+    private float timeTracker = 0f;
+    private bool isMove = false;
 
     public UnityAction onDied;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        GameObject go = Instantiate(enemyDetail.hitFx, transform);
+        hitEffect = go.GetComponent<ParticleSystem>();
     }
 
     private void Start()
@@ -43,6 +46,7 @@ public class Enemy : MonoBehaviour, IEnemy
     public void Hit(float damage)
     {
         currentHealth-= damage;
+        hitEffect.Emit(Random.Range(50,100));
 
         if (currentHealth <= 0)
         {   

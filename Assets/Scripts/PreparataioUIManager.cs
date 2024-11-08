@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,19 +9,20 @@ public class PreparataioUIManager : MonoBehaviour
 {
     [SerializeField] TMP_Text stateText;
     [SerializeField] TMP_Text resText;
+    [SerializeField] TMP_Text resUpdText;
     [SerializeField] TMP_Text coolDownText;
     [SerializeField] Transform towerSelectParent;
     [SerializeField] GameObject TowerSelectBtn;
     [SerializeField] Button stopSelectTowerBtn;
     List<GameObject> towerSelectList = new();
 
-    int waveCounter;
-    int min;
-    float sec;
-
+    private int min;
+    private float sec;
+    private float lastUpdateRes = 0f;
 
     private void OnEnable()
     {
+        GameplayManager.instance.onStateChange += CheckGameplayState;
         GameplayManager.instance.onResourcesChange += CheckResourceUpdate;
         PreparationStage.onPreparationStateChange += CheckPreparationState;
         PreparationStage.onTowerPlaced += UnSetAllSelectionButton;
@@ -28,6 +30,7 @@ public class PreparataioUIManager : MonoBehaviour
 
     private void OnDisable()
     {
+        GameplayManager.instance.onStateChange -= CheckGameplayState;
         GameplayManager.instance.onResourcesChange -= CheckResourceUpdate;
         PreparationStage.onPreparationStateChange -= CheckPreparationState;
         PreparationStage.onTowerPlaced -= UnSetAllSelectionButton;
@@ -74,8 +77,38 @@ public class PreparataioUIManager : MonoBehaviour
                 break;
         }
     }
+
+    void CheckGameplayState(GameplayState state)
+    {
+        switch (state)
+        {
+            case GameplayState.Day:
+                break;
+            case GameplayState.Night:
+                UnSetAllSelectionButton();
+                break;
+        }
+    }
+
     void CheckResourceUpdate(float value)
     {
         resText.SetText($"Resource: {value}");
+
+        resUpdText.rectTransform.position = new Vector2(246, resUpdText.rectTransform.position.y);
+        resUpdText.gameObject.SetActive(false);
+        DOTween.Kill(resUpdText);
+
+        if (lastUpdateRes > 0f)
+        {
+            resUpdText.SetText($"- {Mathf.Abs(lastUpdateRes - value):F0}");
+            resUpdText.gameObject.SetActive(true);
+            resUpdText.rectTransform.DOMoveX(360f, 1f).OnComplete(() =>
+            {
+                resUpdText.rectTransform.position = new Vector2(246, resUpdText.rectTransform.position.y);
+                resUpdText.gameObject.SetActive(false);
+            });
+        }
+
+        lastUpdateRes = value;
     }
 }

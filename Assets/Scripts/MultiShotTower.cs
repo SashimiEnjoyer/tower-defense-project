@@ -1,18 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class MultiShotTower : MonoBehaviour, ITower
 {
     [SerializeField] TowerDetail detail;
     [SerializeField] Transform[] projectileOutput;
 
-    List<GameObject> projectilePool = new();
-    int projectileCount = 0;
-    float currentHealth;
-    float counter;
-    bool isBattleState = false;
+    private List<GameObject> projectilePool = new();
+    private int projectileCount = 0;
+    private float currentHealth;
+    private float counter;
+    private bool isBattleState = false;
 
     private void Awake()
     {

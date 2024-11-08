@@ -11,4 +11,5 @@ public class EnemyDetail : ScriptableObject
     public float speed;
     public float damage;
     public float intervalAttack;
+    public GameObject hitFx;
 }

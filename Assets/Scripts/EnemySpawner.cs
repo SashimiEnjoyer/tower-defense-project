@@ -11,10 +11,10 @@ public struct Wave
 
 public class EnemySpawner : MonoBehaviour
 {
-    public Wave[] wave;
+    [SerializeField] Wave[] wave;
     [SerializeField] Transform[] spawnPoints;
 
-    int spawnTracker = 0;
+    private int spawnTracker = 0;
     private List<GameObject> currentEnemyWave = new ();
 
     private void Awake()
@@ -57,7 +57,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void InitSpawnEnemy(int numberOfSpawn)
+    private void InitSpawnEnemy(int numberOfSpawn)
     {
         int rand = UnityEngine.Random.Range(0, spawnPoints.Length);
 
@@ -69,7 +69,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void SpawnEnemyWhenDied()
+    private void SpawnEnemyWhenDied()
     {
         spawnTracker++;
         

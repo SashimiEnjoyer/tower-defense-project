@@ -13,11 +13,11 @@ public class Tower : MonoBehaviour, ITower
     [SerializeField] Transform enemyDetection;
     [SerializeField] LayerMask enemyLayer;
 
-    List<GameObject> projectilePool = new();
-    int projectileCount = 0;
-    float currentHealth;
-    float counter;
-    bool isBattleState = false;
+    private List<GameObject> projectilePool = new();
+    private int projectileCount = 0;
+    private float currentHealth;
+    private float counter;
+    private bool isBattleState = false;
 
     private void Awake()
     {

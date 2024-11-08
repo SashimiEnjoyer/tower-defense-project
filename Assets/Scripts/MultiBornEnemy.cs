@@ -5,7 +5,6 @@ using UnityEngine;
 public class MultiBornEnemy : Enemy
 {
     [SerializeField] GameObject[] children;
-    Transform[] childrenInitPos = new Transform[3];
 
     private void Start()
     {
@@ -32,8 +31,8 @@ public class MultiBornEnemy : Enemy
     {
         foreach (var item in children)
         {
-            item.SetActive(false);
             item.transform.parent = transform;
+            item.SetActive(false);
         }
     }
 }

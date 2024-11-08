@@ -3,8 +3,8 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] float speed;
-    float damage;
-    Rigidbody body;
+    private float damage;
+    private Rigidbody body;
 
     private void Awake()
     {

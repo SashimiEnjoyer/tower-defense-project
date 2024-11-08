@@ -57,7 +57,7 @@ public class GameplayManager : MonoBehaviour
     private void Start()
     {
         ChangeToDay();
-        Resources = 150;
+        Resources = 50;
     }
 
     [ContextMenu("Change To Night")]

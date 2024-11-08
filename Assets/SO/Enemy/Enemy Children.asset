@@ -16,3 +16,4 @@ MonoBehaviour:
   speed: 100
   damage: 1
   intervalAttack: 1.5
+  hitFx: {fileID: 6795336713425835128, guid: e10bb8e190f5bc746aa9c2ac8a9aea86, type: 3}

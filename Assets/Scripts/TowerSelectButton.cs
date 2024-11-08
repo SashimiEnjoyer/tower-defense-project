@@ -16,7 +16,7 @@ public class TowerSelectButton : MonoBehaviour
     [SerializeField] TMP_Text descriptionText;
     [SerializeField] TMP_Text resourcesText;
 
-    RectTransform rect;
+    private RectTransform rect;
 
     private void Awake()
     {

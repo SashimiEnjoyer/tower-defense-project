@@ -5,8 +5,7 @@ using UnityEngine;
 public class EnhancerTower : MonoBehaviour, ITower
 {
     [SerializeField] TowerDetail detail;
-
-    float currentHealth;
+    private float currentHealth;
 
     private void Start()
     {

@@ -37,9 +37,9 @@ public class PreparationStage : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera preparationVcam;
     [SerializeField] PreparataioUIManager uiManager;
 
-    bool canPlace = false;
-    int towerIdx = 0;
-    float nextStageCooldownCounter;
+    private bool canPlace = false;
+    private int towerIdx = 0;
+    private float nextStageCooldownCounter;
 
     private void Awake()
     {
