@@ -1250,13 +1250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wave:
-  - amountFirstSpawn: 1
-    list:
-    - {fileID: 716935768472503988, guid: 9ee30fdcc49566e41be6112d61f8d1d6, type: 3}
   - amountFirstSpawn: 2
     list:
-    - {fileID: 716935768472503988, guid: 9ee30fdcc49566e41be6112d61f8d1d6, type: 3}
-    - {fileID: 716935768472503988, guid: 9ee30fdcc49566e41be6112d61f8d1d6, type: 3}
+    - {fileID: 716935768472503988, guid: ac8dd30ed5ef87e44bfa7435dd18b07a, type: 3}
     - {fileID: 716935768472503988, guid: 9ee30fdcc49566e41be6112d61f8d1d6, type: 3}
   spawnPoints:
   - {fileID: 2094356834}

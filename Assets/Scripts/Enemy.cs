@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour, IEnemy
     [SerializeField] EnemyDetail enemyDetail;
     Rigidbody body;
 
-    float currentHealth;
+    protected float currentHealth;
     float timeTracker = 0f;
     public bool isMove = false;
 
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
     private void Start()
     {
-        currentHealth = enemyDetail.maxHealth;
+        SetMaxHealth();
     }
 
     private void OnEnable()
@@ -50,6 +50,11 @@ public class Enemy : MonoBehaviour, IEnemy
             GameplayManager.instance.Resources += 10;
             gameObject.SetActive(false);
         }
+    }
+
+    protected void SetMaxHealth()
+    {
+        currentHealth = enemyDetail.maxHealth;
     }
 
     private void OnTriggerEnter(Collider other)
