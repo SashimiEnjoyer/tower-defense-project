@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,6 +15,23 @@ public class TowerSelectButton : MonoBehaviour
     [SerializeField] TMP_Text projectileSpeed;
     [SerializeField] TMP_Text descriptionText;
     [SerializeField] TMP_Text resourcesText;
+
+    RectTransform rect;
+
+    private void Awake()
+    {
+        rect = GetComponent<RectTransform>();
+    }
+
+    private void OnEnable()
+    {
+        rect.DOMoveY(24, .5f);
+    }
+
+    private void OnDisable()
+    {
+        rect.position = new Vector3(rect.position.x, -300);
+    }
 
     public void SetOnClick(UnityAction onClick)
     {
