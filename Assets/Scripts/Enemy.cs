@@ -9,8 +9,9 @@ public interface IEnemy
 public class Enemy : MonoBehaviour, IEnemy
 {
     [SerializeField] EnemyDetail enemyDetail;
-    ParticleSystem hitEffect;
+    [SerializeField] private Animator animator;
 
+    private ParticleSystem hitEffect;
     private Rigidbody body;
     protected float currentHealth;
     private float timeTracker = 0f;
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour, IEnemy
     private void Start()
     {
         SetMaxHealth();
+        
     }
 
     private void OnEnable()
@@ -64,7 +66,10 @@ public class Enemy : MonoBehaviour, IEnemy
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Tower"))
+        {
+            animator.SetBool("Attack", true);
             isMove = false;
+        }
 
         if (other.CompareTag("End"))
         {
@@ -89,7 +94,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
     private void OnTriggerExit(Collider other)
     {
-        
+        animator.SetBool("Attack", false);
         isMove = true;
     }
 }
